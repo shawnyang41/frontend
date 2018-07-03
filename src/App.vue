@@ -1,6 +1,6 @@
 <template>
   <div v-bind:class="{afterSearch : afterSearchFunction}" id="app">
-    <h1 > Mobile Devices Broswer</h1>
+    <h1> Mobile Devices Broswer</h1>
     <div class="searchBar">
       <v-input class="text-input" v-model="searchValue" size="large" icon="search" placeholder="PRESS ENTER TO SEARCH" @onPressEnter="search" @onPressIcon="search"/>
       <v-button size='large' class="search-button" type="primary" icon="search" @click.native="search" :loading="inSearching">Search</v-button>
@@ -13,8 +13,8 @@
         <DetailPage :device="devices[choosenIndex]"/>
     </v-modal>
     <div class="message">{{message}}</div>
-
     <DeviceCard v-for="(device, index) in devices" :key=index :device=device class="diviceCards" @click.native='showDetail(index)'/>
+    <v-pagination :total="50" v-model="model" @onChange="onChange"></v-pagination>
   </div>
 </template>
 
@@ -136,4 +136,10 @@ export default {
 #app .omit{
   display: none;
 }
+
+#app .ant-pagination{
+  
+}
+
+
 </style>
