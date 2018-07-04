@@ -13,8 +13,12 @@
         <DetailPage :device="devices[choosenIndex]"/>
     </v-modal>
     <div class="message">{{message}}</div>
-    <DeviceCard v-for="(device, index) in devices" :key=index :device=device class="diviceCards" @click.native='showDetail(index)'/>
-    <v-pagination :total="50" v-model="model" @onChange="onChange"></v-pagination>
+    
+    <DeviceCard v-for="(device, index) in currentPageDevices" :key=index :device=device class="diviceCards" @click.native='showDetail(index)'/>
+    
+    <v-pagination simple class="pageination" v-bind:class="{afterSearch : afterSearchFunction}" :total="devices.length" :pageSize="pageSize" v-model="cpage" @onChange="onChange"></v-pagination>
+    
+    
   </div>
 </template>
 
@@ -34,6 +38,8 @@ export default {
       message: "",
       visible: false,
       choosenIndex: 0,
+      cpage: 1,
+      pageSize: 9
     }
   },
   methods:{
@@ -59,6 +65,9 @@ export default {
       console.log(index);
       this.choosenIndex = index;
       this.visible = true;
+    },
+    onChange(page) {
+        console.log(page)
     }
   },
   computed:{
@@ -71,6 +80,10 @@ export default {
         return false;
       }
       return true;
+    },
+
+    currentPageDevices(){
+      return this.devices.slice((this.cpage - 1) * this.pageSize, (this.cpage - 1) * this.pageSize + this.pageSize);
     }
   },
 
@@ -87,7 +100,6 @@ export default {
   margin: 0 auto;
   padding: 10% 0px;
   transition: padding 0.7s;
-  height: 100%;
   text-align: center;
 }
 
@@ -121,8 +133,15 @@ export default {
   width: 75%;
 }
 
-#app searchBar .search-button{
-  width: 25%;
+#app .pageination{
+  display: none;
+  width: 136.84px;
+  margin: auto;
+
+}
+
+#app.afterSearch .pageination{
+  display: block;
 }
 
 #app .message{
@@ -131,11 +150,17 @@ export default {
   font-weight: bold;
 }
 
-
-
 #app .omit{
   display: none;
 }
+
+
+
+@media only screen and (max-width: 600px) {
+  #app h1{
+    font-size: 30px;
+  }
+} 
 
 
 </style>
