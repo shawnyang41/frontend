@@ -137,9 +137,5 @@ export default {
   display: none;
 }
 
-#app .ant-pagination{
-  
-}
-
 
 </style>
