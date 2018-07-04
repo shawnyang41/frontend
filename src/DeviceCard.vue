@@ -1,5 +1,4 @@
 <template>
-    
         <v-card class="device-card" :title="device.DeviceName">
             <span>Brand: {{device.Brand}}</span>
             <span>Technology: {{device.technology}}</span>
@@ -15,6 +14,7 @@ export default {
         return{
         }
     },
+    //accept device as props
     props:['device']
 }
 </script>
